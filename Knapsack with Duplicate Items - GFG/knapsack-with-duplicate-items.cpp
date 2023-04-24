@@ -17,23 +17,44 @@ public:
     //     if(wt[ind]<=W)take = val[ind]+solve(ind,W-wt[ind],val,wt,dp);
     //     return dp[ind][W]=max(take,nottake);
     // }
+    // int knapSack(int N, int W, int val[], int wt[])
+    // {
+    //     // code here
+    //     vector<vector<int>> dp(N,vector<int>(W+1,0));
+    //     // return solve(N-1,W,val,wt,dp
+    //     for(int w = 0;w<=W;w++){
+    //         dp[0][w]=((int)(w/wt[0]))*val[0];
+    //     }
+    //     for(int ind = 1;ind<N;ind++){
+    //         for(int w = 0;w<=W;w++){
+    //             int nottake = 0 + dp[ind-1][w];
+    //             int take = 0;
+    //             if(wt[ind]<=w) take = val[ind]+dp[ind][w-wt[ind]];
+    //             dp[ind][w]=max(take,nottake);
+    //         }
+    //     }
+    //     return dp[N-1][W];
+        
+    // }
+    
+    //space optimisation
     int knapSack(int N, int W, int val[], int wt[])
     {
         // code here
-        vector<vector<int>> dp(N,vector<int>(W+1,0));
-        // return solve(N-1,W,val,wt,dp
+        vector<int>prev(W+1,0),curr(W+1,0);
         for(int w = 0;w<=W;w++){
-            dp[0][w]=((int)(w/wt[0]))*val[0];
+            prev[w]=((int)(w/wt[0]))*val[0];
         }
         for(int ind = 1;ind<N;ind++){
             for(int w = 0;w<=W;w++){
-                int nottake = 0 + dp[ind-1][w];
+                int nottake = 0 + prev[w];
                 int take = 0;
-                if(wt[ind]<=w) take = val[ind]+dp[ind][w-wt[ind]];
-                dp[ind][w]=max(take,nottake);
+                if(wt[ind]<=w) take = val[ind]+curr[w-wt[ind]];
+                curr[w]=max(take,nottake);
             }
+            prev=curr;
         }
-        return dp[N-1][W];
+        return prev[W];
         
     }
 };
