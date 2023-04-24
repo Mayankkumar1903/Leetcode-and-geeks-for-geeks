@@ -23,8 +23,27 @@ class Solution{
     // 
     
     //space optimization uisng 2 vectors
-    int cutRod(int price[], int n) {
-         vector<int> prev(n+1,0),curr(n+1,0);
+    // int cutRod(int price[], int n) {
+    //      vector<int> prev(n+1,0),curr(n+1,0);
+    //      for(int N = 0; N <=n;N++){
+    //          prev[N] = N* price[0];
+    //      }
+    //      for(int ind = 1;ind<n;ind++){
+    //          for(int N = 0; N<=n ;N++){
+    //              int nottake = 0 + prev[N];
+    //              int take = -1e9;
+    //              int rodlength = ind+1;
+    //              if(rodlength <= N) take = price[ind] + curr[N-rodlength];
+    //              curr[N]= max(take,nottake);
+    //          }
+    //          prev = curr;
+    //      }
+    //      return prev[n];
+    // }
+    
+    //space optimiise using 1 vector
+     int cutRod(int price[], int n) {
+         vector<int> prev(n+1,0);
          for(int N = 0; N <=n;N++){
              prev[N] = N* price[0];
          }
@@ -33,10 +52,9 @@ class Solution{
                  int nottake = 0 + prev[N];
                  int take = -1e9;
                  int rodlength = ind+1;
-                 if(rodlength <= N) take = price[ind] + curr[N-rodlength];
-                 curr[N]= max(take,nottake);
+                 if(rodlength <= N) take = price[ind] + prev[N-rodlength];
+                 prev[N]= max(take,nottake);
              }
-             prev = curr;
          }
          return prev[n];
     }
