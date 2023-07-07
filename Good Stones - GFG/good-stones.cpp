@@ -10,7 +10,7 @@ class Solution{
 public:
     int dfs(int ind, vector<int>& arr, int n, vector<int>& vis){
         if( ind<0 || ind >= n)return 2;
-        if(vis[ind]==1)return vis[ind];
+        if(vis[ind]==1)return 1;
         vis[ind]=1;
         vis[ind]=dfs(ind+arr[ind],arr,n,vis);
     }
